@@ -34,7 +34,7 @@ jobs:
         uses: github/codeql-action/init@v3
         with:
           languages: java
-          
+
       - name: Autobuild (required for Java)
         uses: github/codeql-action/autobuild@v3
 
