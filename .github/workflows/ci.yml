@@ -30,6 +30,9 @@ jobs:
       - name: Run Unit Tests
         run: mvn test
 
+      - name: Dependency Check (SCA)
+        run: mvn org.owasp:dependency-check-maven:check
+
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
         with:
