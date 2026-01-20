@@ -36,13 +36,13 @@ jobs:
     # Load image into KIND
     - name: Pull and load Docker image
       run: |
-        docker pull ${{ secrets.DOCKERHUB_USERNAME }}/secure-task-manager:${{ github.sha }}
-        kind load docker-image ${{ secrets.DOCKERHUB_USERNAME }}/secure-task-manager:${{ github.sha }}
+        docker pull ${{ secrets.DOCKERHUB_USERNAME }}/secure-task-manager:latest
+        kind load docker-image ${{ secrets.DOCKERHUB_USERNAME }}/secure-task-manager:latest
 
     # Deploy to Kubernetes
     - name: Deploy application
       run: |
-        sed -i "s|DOCKER_IMAGE_PLACEHOLDER|${{ secrets.DOCKERHUB_USERNAME }}/secure-task-manager:${{ github.sha }}|g" k8s/deployment.yaml
+        sed -i "s|DOCKER_IMAGE_PLACEHOLDER|${{ secrets.DOCKERHUB_USERNAME }}/secure-task-manager:latest|g" k8s/deployment.yaml
         kubectl apply -f k8s/
 
     # Wait for pod
