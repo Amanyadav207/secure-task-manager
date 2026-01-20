@@ -52,6 +52,8 @@ jobs:
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
+      with:
+        upload: false
 
     # ----------------------------------------------------
     # 5. SCA – Dependency Vulnerability Scan
