@@ -59,7 +59,7 @@ jobs:
     - name: OWASP Dependency Check
       uses: dependency-check/Dependency-Check_Action@main
       with:
-        project: "shortly-url-shortener"
+        project: "secure-task-manager-url-shortener"
         path: "."
         format: "HTML"
       continue-on-error: true
@@ -84,7 +84,7 @@ jobs:
 
     - name: Build Docker Image
       run: |
-        docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/shortly:latest .
+        docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/secure-task-manager:latest .
 
     # ----------------------------------------------------
     # 9. Trivy – Container Image Security Scan
@@ -92,7 +92,7 @@ jobs:
     - name: Run Trivy vulnerability scan
       uses: aquasecurity/trivy-action@0.24.0
       with:
-        image-ref: ${{ secrets.DOCKERHUB_USERNAME }}/shortly:latest
+        image-ref: ${{ secrets.DOCKERHUB_USERNAME }}/secure-task-manager:latest
         format: 'sarif'
         output: 'trivy-results.sarif'
         severity: 'CRITICAL,HIGH'
@@ -109,12 +109,12 @@ jobs:
     # ----------------------------------------------------
     - name: Run container and test
       run: |
-        docker run -d -p 8080:8080 --name shortly-app ${{ secrets.DOCKERHUB_USERNAME }}/shortly:latest
+        docker run -d -p 8080:8080 --name secure-task-manager-app ${{ secrets.DOCKERHUB_USERNAME }}/secure-task-manager:latest
         sleep 15
         curl -f http://localhost:8080/health || exit 1
-        docker logs shortly-app
-        docker stop shortly-app
-        docker rm shortly-app
+        docker logs secure-task-manager-app
+        docker stop secure-task-manager-app
+        docker rm secure-task-manager-app
 
     # ----------------------------------------------------
     # 11. Login to DockerHub
@@ -130,4 +130,4 @@ jobs:
     # ----------------------------------------------------
     - name: Push Image to DockerHub
       run: |
-        docker push ${{ secrets.DOCKERHUB_USERNAME }}/shortly:latest
+        docker push ${{ secrets.DOCKERHUB_USERNAME }}/secure-task-manager:latest
