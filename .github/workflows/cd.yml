@@ -16,7 +16,7 @@ jobs:
           kubectl apply -f k8s/service.yml
 
       - name: Restart deployment
-        run: kubectl rollout restart deployment/shortly-deployment
+        run: kubectl rollout restart deployment/
 
       - name: Wait for rollout
         run: kubectl rollout status deployment/shortly-deployment --timeout=120s
