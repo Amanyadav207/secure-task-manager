@@ -13,7 +13,8 @@ spec:
         app: secure-task-manager
     spec:
       containers:
-      - name: app
-        image: DOCKER_IMAGE_PLACEHOLDER
-        ports:
-        - containerPort: 8080
+        - name: secure-task-manager
+          image: amanyadav207/secure-task-manager:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
